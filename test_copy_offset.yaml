@@ -1,0 +1,17 @@
+# Mem[50] = 77
+- name: LOAD_CONST
+  args: { value: 77 }
+- name: WRITE_MEM
+  args: { addr: 50 }
+
+# Читаем из Mem[50] используя смещение.
+# Адрес = ACC + Offset.
+# Загружаем в ACC 20. Offset ставим 30. Итог адрес 50.
+- name: LOAD_CONST
+  args: { value: 20 }
+- name: READ_MEM
+  args: { offset: 30 }
+
+# Пишем результат в Mem[0]
+- name: WRITE_MEM
+  args: { addr: 0 }

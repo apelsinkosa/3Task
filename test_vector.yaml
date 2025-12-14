@@ -1,0 +1,74 @@
+# --- ИНИЦИАЛИЗАЦИЯ ВЕКТОРА (0-5) ---
+# [0] = 1 (0x00000001)
+- name: LOAD_CONST
+  args: { value: 1 }
+- name: WRITE_MEM
+  args: { addr: 0 }
+
+# [1] = 258 (0x00000102) -> после bswap будет 0x02010000
+- name: LOAD_CONST
+  args: { value: 258 }
+- name: WRITE_MEM
+  args: { addr: 1 }
+
+# [2] = 511 (максимум для LOAD_CONST)
+- name: LOAD_CONST
+  args: { value: 511 }
+- name: WRITE_MEM
+  args: { addr: 2 }
+
+# [3] = 16
+- name: LOAD_CONST
+  args: { value: 16 }
+- name: WRITE_MEM
+  args: { addr: 3 }
+
+# [4] = 32
+- name: LOAD_CONST
+  args: { value: 32 }
+- name: WRITE_MEM
+  args: { addr: 4 }
+
+# [5] = 100
+- name: LOAD_CONST
+  args: { value: 100 }
+- name: WRITE_MEM
+  args: { addr: 5 }
+
+# --- ОБРАБОТКА ВЕКТОРА (BSWAP 0..5 -> WRITE 10..15) ---
+
+# 0 -> 10
+- name: BSWAP
+  args: { addr: 0 }
+- name: WRITE_MEM
+  args: { addr: 10 }
+
+# 1 -> 11
+- name: BSWAP
+  args: { addr: 1 }
+- name: WRITE_MEM
+  args: { addr: 11 }
+
+# 2 -> 12
+- name: BSWAP
+  args: { addr: 2 }
+- name: WRITE_MEM
+  args: { addr: 12 }
+
+# 3 -> 13
+- name: BSWAP
+  args: { addr: 3 }
+- name: WRITE_MEM
+  args: { addr: 13 }
+
+# 4 -> 14
+- name: BSWAP
+  args: { addr: 4 }
+- name: WRITE_MEM
+  args: { addr: 14 }
+
+# 5 -> 15
+- name: BSWAP
+  args: { addr: 5 }
+- name: WRITE_MEM
+  args: { addr: 15 }

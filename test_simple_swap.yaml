@@ -1,0 +1,11 @@
+# Загружаем 10 (0x0000000A)
+- name: LOAD_CONST
+  args: { value: 10 }
+- name: WRITE_MEM
+  args: { addr: 0 }
+
+# BSWAP(0) -> должно стать 0x0A000000 (167772160 в десятичной)
+- name: BSWAP
+  args: { addr: 0 }
+- name: WRITE_MEM
+  args: { addr: 1 }

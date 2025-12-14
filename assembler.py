@@ -38,39 +38,35 @@ def assemble(input_path, output_path, log_mode):
         return
 
     binary_data = bytearray()
-    
-    # Список для вывода в лог (тестовый режим)
     log_output = []
+    
+    # СЧЕТЧИК КОМАНД (Требование 3)
+    command_count = 0
 
     for cmd in program:
         name = cmd.get('name')
         args = cmd.get('args', {})
-        
         encoded_bytes = None
         
         if name == 'LOAD_CONST':
-            # Операнд B: биты 3-11
             const_val = args.get('value')
             encoded_bytes = serialize_cmd_2byte(CMD_LOAD_CONST, const_val)
-            log_output.append(f"A={CMD_LOAD_CONST}, B={const_val}")
+            log_output.append(f"LOAD_CONST: A={CMD_LOAD_CONST}, B={const_val}")
 
         elif name == 'READ_MEM':
-            # Операнд B: биты 3-8 (смещение)
             offset = args.get('offset')
             encoded_bytes = serialize_cmd_2byte(CMD_READ_MEM, offset)
-            log_output.append(f"A={CMD_READ_MEM}, B={offset}")
+            log_output.append(f"READ_MEM: A={CMD_READ_MEM}, B={offset}")
 
         elif name == 'WRITE_MEM':
-            # Операнд B: биты 3-28 (адрес)
             addr = args.get('addr')
             encoded_bytes = serialize_cmd_4byte(CMD_WRITE_MEM, addr)
-            log_output.append(f"A={CMD_WRITE_MEM}, B={addr}")
+            log_output.append(f"WRITE_MEM: A={CMD_WRITE_MEM}, B={addr}")
 
         elif name == 'BSWAP':
-            # Операнд B: биты 3-28 (адрес)
             addr = args.get('addr')
             encoded_bytes = serialize_cmd_4byte(CMD_BSWAP, addr)
-            log_output.append(f"A={CMD_BSWAP}, B={addr}")
+            log_output.append(f"BSWAP: A={CMD_BSWAP}, B={addr}")
         
         else:
             print(f"Неизвестная команда: {name}")
@@ -78,24 +74,22 @@ def assemble(input_path, output_path, log_mode):
 
         if encoded_bytes:
             binary_data.extend(encoded_bytes)
-            # В тестовом режиме выводим байты как в примере (0x4E, 0x00)
+            command_count += 1
+            
+            # В тестовом режиме выводим байты (Требование 4)
             if log_mode:
                 hex_str = ", ".join([f"0x{b:02X}" for b in encoded_bytes])
                 print(f"{name}: {hex_str}")
 
-    # Запись бинарного файла
+    # Запись бинарного файла (Требование 2)
     try:
         with open(output_path, 'wb') as f:
             f.write(binary_data)
-        print(f"Успешно записано в {output_path}")
+        # Вывод количества команд (Требование 3)
+        print(f"Ассемблировано команд: {command_count}")
+        print(f"Результат записан в файл: {output_path}")
     except Exception as e:
         print(f"Ошибка записи: {e}")
-
-    # Если включен лог, выводим внутреннее представление
-    if log_mode:
-        print("\n--- Внутреннее представление (Test Mode) ---")
-        for line in log_output:
-            print(line)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Assembler for UVM')

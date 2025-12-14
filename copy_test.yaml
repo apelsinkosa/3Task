@@ -1,0 +1,59 @@
+# 1. Инициализация исходного массива (адреса 0, 1, 2)
+# Mem[0] = 100
+- name: LOAD_CONST
+  args:
+    value: 100
+- name: WRITE_MEM
+  args:
+    addr: 0
+
+# Mem[1] = 200
+- name: LOAD_CONST
+  args:
+    value: 200
+- name: WRITE_MEM
+  args:
+    addr: 1
+
+# Mem[2] = 300
+- name: LOAD_CONST
+  args:
+    value: 300
+- name: WRITE_MEM
+  args:
+    addr: 2
+
+# 2. Копирование массива (0->10, 1->11, 2->12)
+
+# Копия 0 -> 10
+- name: LOAD_CONST  # Обнуляем ACC, чтобы читать чисто по смещению
+  args:
+    value: 0
+- name: READ_MEM    # Читаем Mem[ACC + 0] -> ACC = 100
+  args:
+    offset: 0
+- name: WRITE_MEM   # Пишем ACC в Mem[10]
+  args:
+    addr: 10
+
+# Копия 1 -> 11
+- name: LOAD_CONST
+  args:
+    value: 0
+- name: READ_MEM    # Читаем Mem[ACC + 1] -> ACC = 200
+  args:
+    offset: 1
+- name: WRITE_MEM   # Пишем ACC в Mem[11]
+  args:
+    addr: 11
+
+# Копия 2 -> 12
+- name: LOAD_CONST
+  args:
+    value: 0
+- name: READ_MEM    # Читаем Mem[ACC + 2] -> ACC = 300
+  args:
+    offset: 2
+- name: WRITE_MEM   # Пишем ACC в Mem[12]
+  args:
+    addr: 12

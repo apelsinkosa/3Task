@@ -1,0 +1,19 @@
+# Тест (A=6, B=9) -> Ожидаем: 0x4E, 0x00
+- name: LOAD_CONST
+  args:
+    value: 9
+
+# Тест (A=2, B=60) -> Ожидаем: 0xE2, 0x01
+- name: READ_MEM
+  args:
+    offset: 60
+
+# Тест (A=5, B=282) -> Ожидаем: 0xD5, 0x08, 0x00, 0x00
+- name: WRITE_MEM
+  args:
+    addr: 282
+
+# Тест (A=7, B=400) -> Ожидаем: 0x87, 0x0C, 0x00, 0x00
+- name: BSWAP
+  args:
+    addr: 400

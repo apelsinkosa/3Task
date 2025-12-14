@@ -1,4 +1,3 @@
-```markdown
 # 🖥️ Ассемблер и Интерпретатор для Учебной Виртуальной Машины (УВМ)
 
 ![Python](https://img.shields.io/badge/Python-3.8%2B-blue?logo=python&logoColor=white)
@@ -134,4 +133,3 @@ python interpreter.py test_vector.bin res_vector.xml 0:15
 | **BSWAP** | 7 | 0-2: Op, 3-28: Addr | `ACC = bswap(Mem[Addr])` | 4 байта |
 
 ---
-```
